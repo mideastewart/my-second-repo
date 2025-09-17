@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Midea Stewart - Professional Services</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Header/Landing Section */
+    .landing {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 80px 0;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .profile {
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .profile-img {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.05);
+    }
+
+    .landing h1 {
+      font-size: 3rem;
+      color: white;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .landing h2 {
+      font-size: 1.5rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 15px;
+      font-weight: 300;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-style: italic;
+    }
+
+    /* Section Styling */
+    .section {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 20px;
+      border-radius: 20px;
+      padding: 60px 0;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .section h2 {
+      text-align: center;
+      margin-bottom: 40px;
+      font-size: 2.5rem;
+      color: #4a5568;
+      position: relative;
+    }
+
+    .section h2::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      border-radius: 2px;
+    }
+
+    /* Calendar Styling */
+    .calendar-container {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .calendar-placeholder {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(102, 126, 234, 0.1);
+    }
+
+    .mock-calendar {
+      margin-top: 20px;
+    }
+
+    .month-selector {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .month-selector button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s ease;
+    }
+
+    .month-selector button:hover {
+      transform: scale(1.1);
+    }
+
+    .month-selector h3 {
+      color: #4a5568;
+      font-size: 1.3rem;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 5px;
+      text-align: center;
+    }
+
+    .day-header {
+      background: #1a365d;
+      color: white;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .day {
+      padding: 15px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+      border: 1px solid #e9ecef;
+    }
+
+    .day:hover {
+      background: rgba(102, 126, 234, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .day.inactive {
+      color: #ccc;
+      cursor: not-allowed;
+    }
+
+    .day.available {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      font-weight: bold;
+    }
+
+    .day.available:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Services Section */
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+      justify-items: center;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .service-item {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      border: 2px solid rgba(102, 126, 234, 0.1);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(45deg, #667eea, #764ba2);
+    }
+
+    .service-item:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .service-item h3 {
+      color: #4a5568;
+      margin-bottom: 15px;
+      font-size: 1.4rem;
+    }
+
+    .service-item p {
+      color: #718096;
+      line-height: 1.6;
+    }
+
+    /* Timeline Section */
+    .timeline-selection {
+      max-width: 500px;
+      margin: 0 auto;
+      display: grid;
+      gap: 30px;
+    }
+
+    .date-selection,
+    .time-selection {
+      background: white;
+      padding: 25px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: 600;
+      color: #4a5568;
+    }
+
+    input[type="date"],
+    select {
+      width: 100%;
+      padding: 15px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 16px;
+      background: white;
+      transition: all 0.3s ease;
+    }
+
+    input[type="date"]:focus,
+    select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    /* Contact Section */
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      font-size: 16px;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .contact-form textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .contact-form button {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      border: none;
+      padding: 15px 40px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+    }
+
+    .contact-form button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      padding: 30px 0;
+      text-align: center;
+      margin-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer p {
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .landing h1 {
+        font-size: 2rem;
+      }
+
+      .section {
+        margin: 10px;
+        padding: 40px 0;
+      }
+
+      .section h2 {
+        font-size: 2rem;
+      }
+
+      .services-list {
+        grid-template-columns: 1fr;
+      }
+
+      .calendar-grid {
+        gap: 3px;
+      }
+
+      .day {
+        padding: 10px 5px;
+        font-size: 0.9rem;
+      }
+
+      .contact-form {
+        padding: 25px;
+        margin: 0 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Landing Section -->
+  <header class="landing">
+    <div class="container">
+      <div class="profile">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwYIChAKCgkJChQODwwQFxQYGBcUFhYaHSUfGhsjHBYWICwgIyYnKSopGR8tMC0oMCUoKSj/2wBDAQcHBwoIChMKChMoGhYaKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCgoKCj/wAARCABgAGADASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD1+iiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigAooooAKKKKACiiigD/9k=" alt="Midea Stewart" class="profile-img">
+        <h1>Midea Stewart</h1>
+        <h2>HR Consulting | Virtual Assistant</h2>
+        <p class="tagline">Professional services tailored to your needs</p>
+      </div>
+    </div>
+  </header>
+
+  <!-- Schedule Appointment Section -->
+  <section id="schedule" class="section">
+    <div class="container">
+      <h2>Schedule an Appointment</h2>
+      <div class="calendar-container">
+        <div class="calendar-placeholder">
+          <p style="text-align: center; color: #4a5568; font-size: 1.1rem; margin-bottom: 20px;">Select an available date below</p>
+          <div class="mock-calendar">
+            <div class="month-selector">
+              <button onclick="changeMonth(-1)">◀</button>
+              <h3 id="current-month">September 2025</h3>
+              <button onclick="changeMonth(1)">▶</button>
+            </div>
+            <div class="calendar-grid">
+              <div class="day-header">Sun</div>
+              <div class="day-header">Mon</div>
+              <div class="day-header">Tue</div>
+              <div class="day-header">Wed</div>
+              <div class="day-header">Thu</div>
+              <div class="day-header">Fri</div>
+              <div class="day-header">Sat</div>
+
+              <div class="day inactive">1</div>
+              <div class="day inactive">2</div>
+              <div class="day inactive">3</div>
+              <div class="day inactive">4</div>
+              <div class="day inactive">5</div>
+              <div class="day inactive">6</div>
+              <div class="day inactive">7</div>
+              <div class="day inactive">8</div>
+              <div class="day inactive">9</div>
+              <div class="day inactive">10</div>
+              <div class="day inactive">11</div>
+              <div class="day inactive">12</div>
+              <div class="day inactive">13</div>
+              <div class="day available" onclick="selectDate(this)">14</div>
+              <div class="day available" onclick="selectDate(this)">15</div>
+              <div class="day available" onclick="selectDate(this)">16</div>
+              <div class="day available" onclick="selectDate(this)">17</div>
+              <div class="day available" onclick="selectDate(this)">18</div>
+              <div class="day available" onclick="selectDate(this)">19</div>
+              <div class="day available" onclick="selectDate(this)">20</div>
+              <div class="day available" onclick="selectDate(this)">21</div>
+              <div class="day available" onclick="selectDate(this)">22</div>
+              <div class="day available" onclick="selectDate(this)">23</div>
+              <div class="day available" onclick="selectDate(this)">24</div>
+              <div class="day available" onclick="selectDate(this)">25</div>
+              <div class="day available" onclick="selectDate(this)">26</div>
+              <div class="day available" onclick="selectDate(this)">27</div>
+              <div class="day available" onclick="selectDate(this)">28</div>
+              <div class="day available" onclick="selectDate(this)">29</div>
+              <div class="day available" onclick="selectDate(this)">30</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Section -->
+  <section id="services" class="section">
+    <div class="container">
+      <h2>Available Services</h2>
+      <div class="services-list">
+        <div class="service-item">
+          <h3>HR Consultation</h3>
+          <p>Comprehensive HR consulting services including policy development, employee relations, compliance guidance, and strategic HR planning tailored to your organization's needs.</p>
+        </div>
+        <div class="service-item">
+          <h3>Virtual Assistant Services</h3>
+          <p>Professional virtual assistance including administrative support, calendar management, email handling, data entry, and project coordination to help streamline your operations.</p>
+        </div>
+        <div class="service-item">
+          <h3>Talent Acquisition</h3>
+          <p>End-to-end recruitment services including job posting, candidate screening, interview coordination, and onboarding support to help you find the right talent.</p>
+        </div>
+        <div class="service-item">
+          <h3>Training & Development</h3>
+          <p>Customized training programs for HR professionals, managers, and teams. Focus areas include compliance training, leadership development, and skill enhancement.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Timeline Section -->
+  <section id="timeline" class="section">
+    <div class="container">
+      <h2>Service Timeline</h2>
+      <div class="timeline-selection">
+        <div class="date-selection">
+          <label for="service-date">Preferred Date:</label>
+          <input type="date" id="service-date" name="service-date">
+        </div>
+        <div class="time-selection">
+          <label for="service-time">Preferred Time:</label>
+          <select id="service-time" name="service-time">
+            <option value="">Select a time</option>
+            <option value="morning">Morning (9AM - 12PM)</option>
+            <option value="afternoon">Afternoon (1PM - 5PM)</option>
+            <option value="evening">Evening (6PM - 8PM)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section id="contact" class="section">
+    <div class="container">
+      <h2>Contact Me</h2>
+      <form class="contact-form">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Enter your name" required>
+        
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        
+        <label for="message">Your Message</label>
+        <textarea id="message" name="message" rows="5" placeholder="Write your message here" required></textarea>
+        
+        <button type="submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>&copy; 2025 Midea Stewart | All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <script>
+    // Calendar functionality
+    const months = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+
+    let currentMonth = 8; // September (0-indexed)
+    let currentYear = 2025;
+
+    function changeMonth(direction) {
+      currentMonth += direction;
+      if (currentMonth > 11) {
+        currentMonth = 0;
+        currentYear++;
+      } else if (currentMonth < 0) {
+        currentMonth = 11;
+        currentYear--;
+      }
+      updateMonthDisplay();
+    }
+
+    function updateMonthDisplay() {
+      document.getElementById('current-month').textContent = `${months[currentMonth]} ${currentYear}`;
+    }
+
+    function selectDate(element) {
+      // Remove previous selections
+      document.querySelectorAll('.day.selected').forEach(day => {
+        day.classList.remove('selected');
+        day.style.background = 'linear-gradient(45deg, #667eea, #764ba2)';
+      });
+      
+      // Add selection to clicked date
+      element.classList.add('selected');
+      element.style.background = 'linear-gradient(45deg, #28a745, #20c997)';
+      
+      // Update the date input
+      const selectedDate = element.textContent;
+      const dateStr = `${currentYear}-${String(currentMonth + 1).padStart(2, '0')}-${String(selectedDate).padStart(2, '0')}`;
+      document.getElementById('service-date').value = dateStr;
+    }
+
+    // Form submission handler
+    document.querySelector('.contact-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you for your message! I will get back to you soon.');
+      this.reset();
+    });
+
+    // Add smooth scrolling for any future navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
